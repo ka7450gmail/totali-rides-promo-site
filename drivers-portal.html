@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Portal | Totali</title>     
+    <style>
+        /* CSS VARIABLES & STYLES (THE PAINT BOOTH) */
+        :root {
+            --color-bg: #050505;
+            --color-cyan: #00d4f5;
+            --color-green: #00ff88;
+            --color-white: #ffffff;
+            --radius-xl: 24px;
+        }
+
+        body { 
+            background-color: var(--color-bg); 
+            margin: 0; 
+            font-family: 'Inter', sans-serif; 
+            color: var(--color-white); 
+            scroll-behavior: smooth; 
+        }
+
+        /* --- ADDED HERO STYLES TO FIX WHITE TEXT --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        .hero__inner { 
+            text-align: center; 
+            padding-block: 5rem; 
+            display: flex; 
+            justify-content: center;
+        }
+
+        .hero__title { 
+            font-size: 3rem; 
+            margin: 20px 0; 
+            font-weight: 900; 
+            line-height: 1.1; 
+        }
+
+        .text-cyan { color: var(--color-cyan); }
+
+        .hero__subtitle { 
+            font-size: 1.2rem; 
+            color: rgba(255,255,255,0.7); 
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 16px;
+            background: rgba(0, 212, 245, 0.1);
+            border: 1px solid rgba(0, 212, 245, 0.2);
+            border-radius: 100px;
+            color: var(--color-cyan);
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .badge--dot::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--color-cyan);
+            border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: 0 0 10px var(--color-cyan);
+        }
+        /* ------------------------------------------ */
+
+        /* SECTION STYLING */
+        .founder { 
+            background: #111111; 
+            padding-block: 5rem; 
+            display: flex; 
+            align-items: center; 
+            position: relative; 
+            overflow: hidden; 
+            border-bottom: 1px solid #222; 
+        }
+        
+        .founder__inner { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            position: relative; 
+            z-index: 1; 
+            padding: 20px; 
+        }
+
+        .founder__card-wrap {
+            padding: 1px; border-radius: calc(var(--radius-xl) + 1px);
+            background: linear-gradient(135deg, rgba(0,212,245,0.25) 0%, rgba(0,212,245,0.04) 40%, rgba(0,212,245,0.04) 60%, rgba(0,212,245,0.15) 100%);
+        }
+
+        .founder__card {
+            background: linear-gradient(160deg, rgba(255,255,255,0.04) 0%, var(--color-bg) 60%);
+            border-radius: var(--radius-xl); padding: 4rem; position: relative; overflow: hidden;
+        }
+
+        /* PILL HEADER */
+        .pill-header { 
+            display: inline-flex; align-items: center; gap: 10px; padding: 6px 16px; 
+            background: rgba(0, 212, 245, 0.05); border: 1px solid rgba(0, 212, 245, 0.2); 
+            border-radius: 100px; margin-bottom: 2rem; 
+        }
+        .dot-small { width: 8px; height: 8px; background-color: var(--color-cyan); border-radius: 50%; box-shadow: 0 0 10px var(--color-cyan); }
+
+        /* TYPOGRAPHY */
+        h1 { font-size: 2.5rem; margin: 0 0 30px 0; text-transform: uppercase; font-weight: 800; line-height: 1.1; }
+        .content-body { color: rgba(255,255,255,0.85); font-size: 1.1rem; line-height: 1.8; text-align: justify; }
+        .content-body p { margin-bottom: 25px; }
+
+        /* SIGNATURES */
+        .sig-block { display: flex; align-items: center; gap: 1.5rem; margin-top: 50px; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.07); }
+        .dot-large { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--color-cyan), #0098b8); flex-shrink: 0; box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px rgba(0,212,245,0.25); }
+        .sig-name { font-weight: 800; font-size: 1rem; color: var(--color-white); letter-spacing: -0.01em; margin-bottom: 0.2rem; }
+        .sig-role { color: rgba(255,255,255,0.6); font-size: 0.85rem; }
+
+        /* --- DOWNLOAD BUTTON STYLING --- */
+.btn-download { 
+    background: var(--color-cyan); 
+    color: #000000 !important; /* Forces text to be black for contrast */
+    padding: 1rem 2.5rem; 
+    border-radius: 50px; 
+    text-decoration: none; 
+    font-weight: 800; 
+    text-transform: uppercase; 
+    display: inline-block; 
+    margin-top: 40px; 
+    transition: 0.3s; 
+    border: none; 
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+
+.btn-download:hover { 
+    box-shadow: 0 0 25px var(--color-cyan); 
+    transform: scale(1.05);
+    background: #ffffff; /* Turns white on hover for a cool effect */
+}
+
+/* Also ensure the list style is present for your "Commitment" section */
+.policy-list { list-style: none; padding: 0; margin-top: 20px; }
+.policy-list li { margin-bottom: 15px; padding-left: 30px; position: relative; }
+.policy-list li::before { content: '✔'; color: var(--color-cyan); position: absolute; left: 0; font-weight: bold; }
+
+    /* --- FAQ ACCORDION FIX --- */
+.accordion__body {
+    display: none; /* This hides the answer by default */
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.accordion__body.open {
+    display: block; /* This shows the answer when clicked */
+}
+
+.accordion__trigger {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding-block: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Optional: Add a little plus sign or arrow feel */
+.accordion__trigger::after {
+    content: '+';
+    color: var(--color-cyan);
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+[aria-expanded="true"]::after {
+    content: '−';
+}  
+        /* MOBILE FIX FOR SECTION OVERFLOW */
+@media screen and (max-width: 768px) {
+    .founder, .founder__inner, .founder__card-wrap, .founder__card {
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Shrink the big title so it fits on one line */
+    h1 {
+        font-size: 1.8rem !important; 
+        word-wrap: break-word !important;
+    }
+}
+    </style>
+</head>
+
+<body>
+
+    <!-- STICKY TABLE OF CONTENTS -->
+    <nav style="background: #0c0c0c; border-bottom: 1px solid #1a1a1a; padding: 20px; position: sticky; top: 0; z-index: 1000;">
+    <div style="max-width: 800px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; align-items: center;">
+        <a href="#founder" style="color: #00d4f5; text-decoration: none; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Founder's Letter</a>
+        <span style="color: #333;">|</span>
+        <a href="#bill-of-rights" style="color: #00d4f5; text-decoration: none; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Bill of Rights</a>
+        <span style="color: #333;">|</span>
+        <a href="#rating" style="color: #00d4f5; text-decoration: none; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Rating System</a>
+        <span style="color: #333;">|</span>
+        <a href="#safety" style="color: #00d4f5; text-decoration: none; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Safety Policy</a>
+        <span style="color: #333;">|</span>
+        <a href="#agreement" style="color: #00d4f5; text-decoration: none; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Service Agreement</a>
+        <span style="color: #333;">|</span>
+        <a href="#driver-faq" style="color: #00d4f5; text-decoration: none; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">FAQ</a>
+    </div>
+</nav>
+<!-- FLOATING BACK BUTTON CONTAINER -->
+<div class="back-btn-wrapper">
+    <a href="index.html" class="shimmer-back-btn">
+       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+       </svg>
+       <span>Back</span>
+    </a>
+</div>
+
+<style>
+/* 1. This wrapper stays centered with your content */
+.back-btn-wrapper {
+    position: fixed;
+    top: 100px; /* PC placement */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1200px;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* 2. The button itself */
+.shimmer-back-btn {
+    position: absolute;
+    left: 20px;
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    padding: 8px 15px;
+    border-radius: 30px;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    
+    background-image: linear-gradient(135deg, #00FFFF 0%, #34A853 50%, #00FFFF 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmerShift 3s linear infinite;
+    transition: all 0.3s ease;
+}
+
+.shimmer-back-btn:hover {
+    transform: translateX(-3px);
+    border-color: #00FFFF;
+}
+
+@keyframes shimmerShift {
+    to { background-position: 200% center; }
+}
+
+/* 3. MOBILE FIX: Specifically for the "Service Agreement" overlap */
+@media (max-width: 768px) {
+    .back-btn-wrapper {
+        /* Increased from 85px to 120px to clear your Nav Bar words */
+        top: 120px; 
+    }
+    .shimmer-back-btn {
+        left: 15px;
+        padding: 7px 14px;
+        background-color: rgba(0, 0, 0, 0.9); /* Darker to pop against background */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Adds depth so it doesn't look 'flat' on the text */
+    }
+}
+</style>
+    <!-- NEW HEADER SECTION (NOW STYLED CORRECTLY) -->
+    <div class="container hero__inner">
+        <div class="hero__content">
+          <span class="badge badge--dot">Built for Success</span>
+
+          <h1 class="hero__title">
+            STOP PLAYING<br>
+            <span class="text-cyan">THE ALGORITHM GAME.</span>
+          </h1>
+
+          <p class="hero__subtitle">            
+             
+             <strong>Drivers, Most Big Apps take 50% TO 60% of the fare, at TOTALI, the math is fixed:</strong>
+              <strong>YOUR TAKE = 70% WITH TOTALI  </strong>
+              <p>Every Trip. No Exceptions. No Games. You Can net 40-50% more money weekly</p>
+          </p>
+        </div>
+    </div>
+
+   
+    </section>    
+
+    <!-- SECTION 1: FOUNDER'S LETTER -->
+    <section class="founder" id="founder">
+        <div class="founder__inner">
+            <div class="founder__card-wrap">
+                <div class="founder__card">
+                    <div class="pill-header">
+                        <div class="dot-small"></div>
+                        <span style="color: var(--color-cyan); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem;">From The Founder</span>
+                    </div>
+                    <h1>The <span style="color: var(--color-cyan);">70/30</span> Revolution.</h1>
+                    <div class="content-body">
+                        <p>To the Drivers of London and the Ontario Rideshare Community,</p>
+                        <p>When we sat down to build a <strong>No Tips Rideshare™</strong>, we didn't start with an app—we started with a calculator.</p>
+                        <p>For years, the industry has relied on the uncertainty of tips. Drivers are squeezed by rising costs and shrinking percentages. Meanwhile, riders face "tip fatigue" and social pressure.</p>
+                        <p style="border-left: 3px solid var(--color-cyan); padding-left: 20px; font-style: italic; color: #eee;">"We knew there had to be a better way: Better Math."</p>
+                        <p>We founded this company on a single, unwavering principle: <strong style="color: var(--color-cyan);">The 70/30 Advantage™</strong>. By capping our platform fee at 30%, we ensure that you, the Independent Contractor, earn a fair and dignified share of every fare.</p>
+                        <p>Because you are paid fairly, we’ve removed tipping entirely from the Apps. When they ride with us, the price they see is the total price they pay. We call it <span style="color: var(--color-cyan);">Zero-Friction Travel</span>.</p>
+                        <p>We are launching here in <strong>London</strong> on July 1st because this is our home. Our mission is to prove that a rideshare company can be both a sophisticated platform and a fair local partner.</p>
+                    </div>
+                      <!-- SIGNATURE BLOCK (RESTORED) -->
+                    <div class="sig-block">
+                        <div class="dot-large"></div>
+                        <div>
+                            <div class="sig-name">Totali Rides</div>
+                            <div class="sig-role">Founder, CEO</div>
+                        </div>
+                    </div>
+
+                    <!-- BUTTON (RESTORED) -->
+                    <div style="text-align: center;">
+                        <a href="#" class="btn-download">Apply To Drive</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ <!-- SECTION 1: FOUNDER'S LETTER -->
+    <section class="founder" id="bill-of-rights">
+        <div class="founder__inner">
+            <div class="founder__card-wrap">
+                <div class="founder__card">
+                    <div class="pill-header">
+                        <div class="dot-small"></div>
+                        <span style="color: var(--color-cyan); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem;">Driver's Bill Of Rights</span>
+                    </div>
+                    <h1><span style="color: var(--color-cyan);">Totali Rides</span> Bill Of Rights.</h1>
+                    <div class="content-body">
+                        <p>Hello Drivers,</p>
+                        <p>Welcome to the team. You aren’t just a "user" of an app anymore—you are a founding partner of a London-born rideshare startup. 
+
+                        We understand you will be running a Big Tech App or two, in the background. We also know the frustration that comes with them: the "blind" pickups, the automated bots, and the constant fear that one grumpy passenger can ruin your livelihood. 
+
+                        With Totali Rides , the rules have changed.</p> 
+
+                       <p>We built this platform to fix the "The Big Tech Apps frustrations." Here is our Driver Bill of Rights to you:</p>  
+
+                       <p><strong style="color: var(--color-cyan);">100% Upfront Transparency:</strong></p> 
+                       <p>You will always see the exact drop-off address, the total distance, your take (always totaling 70% of the Riders Fare) , and the estimated time before you hit accept. No status levels prevail, no hidden data.</p>  
+
+                       <p><strong style="color: var(--color-cyan);">The "Human-First" Rating Policy:</strong></p> 
+                       <p>We do not let bots decide your fate. We believe in the power of Plurality. We will never automatically de-rate or suspend you based on a single, unsubstantiated complaint (like "rudeness" or "smell" etc). It takes multiple independent reports within a shift, or the previous or following shift, to substantiate a claim. A single only, claim remains unverified unless substantiated .</p>  
+
+                       <p><strong style="color: var(--color-cyan);">The "No-Bot" Guarantee:</strong></p> 
+                       <p>If there is a substantiated dispute, you won't get a templated email. You will talk to me—a real person right here in London who understands that sometimes a "horrible driving" complaint just means you were dodging a pothole on Adelaide Street.</p>  
+
+                       <p><strong style="color: var(--color-cyan);">Unlimited Area Preferences:</strong></p> 
+                       <p>Want to stay in North London/University area all day? Do it. We don't limit your filter selections  to two hours. Stay where you’re comfortable, for as long as you want.</p>  
+
+                       <p><strong style="color: var(--color-cyan);">Zero-Penalty Freedom:</strong></p> 
+                       <p>You are an Independent Contractor. If a ride doesn't make sense for your wallet, don’t accept it. Your acceptance rate will never be used to punish you or hide trip details, for trying to maximize your business's profitability.</p>   
+
+                      <p>As one of our Founding partners, your feedback directly shapes how we grow. We’re here to build a business that respects your time, your car, and your expertise. </p> 
+
+                      <p>Let’s get to work.</p>
+                    </div>
+                      <!-- SIGNATURE BLOCK (RESTORED) -->
+                    <div class="sig-block">
+                        <div class="dot-large"></div>
+                        <div>
+                            <div class="sig-name">Totali Operations</div>
+                            <div class="sig-role">Driver Relations Department</div>
+                        </div>
+                    </div>
+
+                    <!-- BUTTON (RESTORED) -->
+                    <div style="text-align: center;">
+                        <a href="#" class="btn-download">Apply To Drive</a>
+                    </div>
+                </div>
+            </div>
+        </div>             
+        </section>    
+        
+       <!-- SECTION 2: THE HONEST RATING SYSTEM -->
+    <section class="founder" id="rating">
+        <div class="founder__inner">
+            <div class="founder__card-wrap">
+                <div class="founder__card">
+                    <div class="pill-header">
+                        <div class="dot-small"></div>
+                        <span style="color: var(--color-cyan); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem;">Platform Psychology</span>
+                    </div>
+                    
+                    <h1>The <span style="color: var(--color-cyan);">Honest 5-Star</span> Rating™.</h1>
+                    
+                    <div class="content-body">
+                        <p>At Totali, we believe a rating system should measure the quality of the service, not the size of the rider’s guilt.</p>
+                        
+                        <p><strong>The "Guilt-Adjusted" Rating Problem:</strong> In traditional rideshare apps, riders are forced to face a tip prompt before they rate. Research shows that when a rider chooses not to tip—which happens over 50% of the time—it creates a negative mental state. To justify saving that money and relieve the internal "guilt," the rider’s brain looks for a reason. They tell themselves, <em>"The ride wasn't perfect anyway,"</em> and they lower the rating to justify their decision.</p>
+
+                        <p style="border-left: 3px solid var(--color-cyan); padding-left: 20px; font-style: italic; color: #eee;">
+                            "In that system, your 4-star rating isn't a reflection of your driving; it’s a psychological cover-up for an empty tip line."
+                        </p>
+
+                        <p><strong>The Totali Positive-State Advantage:</strong> We’ve removed the friction. When a Totali rider reaches the end of their journey, they see a fare that is exactly what they expected. They aren't being "squeezed" for more money, so they remain in a <strong>Positive State of Mind</strong>.</p>
+                        
+                        <p>When that rider is asked to rate you, they aren't looking for excuses. They are simply reflecting on the great service you provided. We call this the <strong>Honest Rating System</strong>—where a 5-star rating is a genuine "Thank You" because we treat riders fairly and they treat you honestly.</p>
+                    </div>
+
+                    <!-- SIGNATURE BLOCK -->
+                    <div class="sig-block">
+                        <div class="dot-large" style="background: linear-gradient(135deg, #ffcc00, #ff9900); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #000;">★</div>
+                        <div>
+                            <div class="sig-name">The Totali Standard</div>
+                            <div class="sig-role">Integrity in Every Interaction</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>  
+    <!-- SECTION: SAFETY & CODE OF CONDUCT -->
+<section class="founder" id="safety" style="background: #111111;">
+    <div class="founder__inner">
+        <div class="founder__card-wrap">
+            <div class="founder__card">
+                <div class="pill-header">
+                    <div class="dot-small" style="background-color: #ff4444; box-shadow: 0 0 10px #ff4444;"></div>
+                    <span style="color: #ff4444; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem;">Safety First</span>
+                </div>
+                
+                <h1>Community <span style="color: var(--color-cyan);">Safety</span> Standards</h1>
+                
+                <div class="content-body">
+                    <p>To keep the Totali platform safe for everyone, we maintain strict adherence to Ontario provincial laws. These aren't just "app rules"—they are legal requirements for all professional drivers.</p>
+
+                    <p><strong style="color: var(--color-cyan);">Zero-Tolerance Impairment Policy:</strong><br>
+                    Ontario law mandates **absolute zero-tolerance** for alcohol or drugs for all commercial drivers while on duty. Any substantiated report of impairment will result in immediate and permanent deactivation from the platform. We take this seriously to protect your livelihood and our riders' lives.</p>
+
+                    <p><strong style="color: var(--color-cyan);">Service Animal Requirements:</strong><br>
+                    Under the <em>Accessibility for Ontarians with Disabilities Act (AODA)</em>, you are legally required to transport riders with service animals. Denying a ride to a service animal is a violation of the law and Totali policy. Remember: Service animals are highly trained, clean, and essential for their owners' independence.</p>
+
+                    <p><strong style="color: var(--color-cyan);">Vehicle Safety & Maintenance:</strong><br>
+                    Your vehicle is your office. You are responsible for ensuring it remains in peak mechanical condition. A valid <strong>Safety Standards Certificate (SSC)</strong> must be kept on file and updated annually to remain active on the platform.</p>
+
+                    <p style="border-left: 3px solid #ff4444; padding-left: 20px; font-style: italic; color: #eee; margin-top: 30px;">
+                        "At Totali, safety is a shared responsibility. When you drive with us, you're upholding a standard of excellence for the city of London."
+                    </p>
+                </div>
+
+                <div class="sig-block">
+                    <div class="dot-large" style="background: linear-gradient(135deg, #ff4444, #990000); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: #fff;">🛡️</div>
+                    <div>
+                        <div class="sig-name">Totali Safety Team</div>
+                        <div class="sig-role">London Compliance Division</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+  <!-- SECTION: BINDING SERVICE AGREEMENT (v1.0) -->
+<section class="founder" id="agreement">
+    <div class="founder__inner">
+        <div class="founder__card-wrap">
+            <div class="founder__card">
+                <div class="pill-header">
+                    <div class="dot-small"></div>
+                    <span style="color: var(--color-cyan); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem;">Service Agreement</span>
+                </div>
+                <h1>Platform Access <span style="color: var(--color-cyan);">Agreement</span></h1>
+                
+                <div class="content-body">
+                    <p>To drive with Totali, you must review and agree to the PAA. This is a legally binding contract under Ontario law.</p>
+                    
+                   <ul class="policy-list">
+                   <li><strong>The 70/30 Revolution:</strong> We capped our platform fee at 30% so you earn a dignified, fair share.</li>
+                   <li><strong>No-Tips Rideshare™:</strong> Better math means you don't rely on the uncertainty of tips to make a living.</li>
+                   <li><strong>Zero-Friction Travel:</strong> No tips, no pressure. Riders will love it, bringing you higher paid miles.</li>
+                  </ul>
+<!-- SECTION: BINDING SCHEDULES (ACCORDION STYLE) -->
+<section class="founder" id="paa-schedules" style="background: #050505; padding-top: 0;">
+    <div class="founder__inner">
+        <div class="founder__card-wrap">
+            <div class="founder__card">
+                <div class="pill-header">
+                    <div class="dot-small"></div>
+                    <span style="color: var(--color-cyan); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem;">Contract Appendices</span>
+                </div>
+                
+                <h2 style="font-size: 2.2rem; margin-bottom: 1rem; text-transform: uppercase; font-weight: 800;">Official <span style="color: var(--color-cyan);">Schedules</span></h2>
+                <p style="color: rgba(255,255,255,0.6); margin-bottom: 2rem;">The following schedules are a binding part of the Platform Access Agreement.</p>
+
+                <div class="accordion">
+
+                    <!-- (A) REQUIRED DOCUMENTS -->
+                    <div class="accordion__item">
+                        <button class="accordion__trigger">
+                            <span style="font-weight: 700; font-size: 1.1rem;">(A) Required Driver Documents (DPWRA)</span>
+                        </button>
+                        <div class="accordion__body" style="padding: 20px 0; color: rgba(255,255,255,0.8); line-height: 1.6;">
+                            <p>As per the Digital Platform Workers' Rights Act, the following time-sensitive documents are incorporated into this agreement:</p>
+                            <ul style="margin-top: 10px; padding-left: 20px; list-style-type: disc; color: var(--color-cyan);">
+                                <li>Driver Policy Notice</li>
+                                <li>How-To Guide</li>
+                                <li>Troubleshooting and Incident Guide</li>
+                                <li>Mandatory Disclosure Guide</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- (B) COMMUNITY & CONDUCT -->
+                    <div class="accordion__item">
+                        <button class="accordion__trigger">
+                            <span style="font-weight: 700; font-size: 1.1rem;">(B) Community, Safety & Standards</span>
+                        </button>
+                        <div class="accordion__body" style="padding: 20px 0; color: rgba(255,255,255,0.8); line-height: 1.6;">
+                            <p>Drivers must adhere to the following operational standards to maintain platform access:</p>
+                            <ul style="margin-top: 10px; padding-left: 20px; list-style-type: disc; color: var(--color-cyan);">
+                                <li>Community Guidelines & Code of Conduct</li>
+                                <li>Provincial Addendums (Ontario)</li>
+                                <li>Service Animals: Info and Refusal Policies</li>
+                            </ul>
+                            <p style="margin-top: 15px; font-size: 0.9rem; color: rgba(255,255,255,0.5);">
+                                <em>Note:</em> Failure to comply with Service Animal regulations is a violation of the Ontario Human Rights Code and results in immediate deactivation.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+                    <!-- THE BINDING FORM -->
+                    <form action="https://formspree.io/f/xykodjeq" method="POST" id="paa-form" style="margin-top: 30px; text-align: left;">                      
+                        <input type="hidden" name="PAA_Version" value="v1.0-May-2024">                        
+                        <input type="hidden" name="_next" value="https://ka7450gmail.github.io/totali-web/thanks.html">
+                        <div style="background: rgba(0,255,255,0.05); padding: 20px; border-radius: 8px; border: 1px dashed var(--color-cyan);">
+                            <p style="margin-bottom: 15px;">
+                                <strong>Step 1:</strong> 
+                               <a href="assets/documents/Totali_PAA_v1.0.pdf#toolbar=0" target="_blank" rel="noopener noreferrer" id="paa-link" style="color: var(--color-cyan); font-weight: bold; text-decoration: underline;">
+                                  Open and Read the Full PAA (PDF)
+                                </a>
+                                </a>
+                                </a>
+                            </p>
+                            
+                            <label style="display: block; margin-bottom: 15px; font-size: 0.9rem; cursor: pointer;">
+                                <input type="checkbox" id="agree-checkbox" required disabled style="margin-right: 10px;">
+                                I have read and agree to be bound by the Totali Platform Access Agreement.
+                            </label>
+
+                            <input type="text" name="driver_name" placeholder="Your Full Legal Name" required 
+                                   style="width: 100%; padding: 12px; margin-bottom: 15px; background: #000; border: 1px solid #444; color: #fff; border-radius: 4px;">
+                            
+                            <button type="submit" id="submit-btn" class="btn-download" style="width: 100%; opacity: 0.4; cursor: not-allowed;" disabled>
+                                Digitally Sign & Agree
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Logic to unlock the form only after PDF is opened
+    const pLink = document.getElementById('paa-link');
+    const pBox = document.getElementById('agree-checkbox');
+    const pBtn = document.getElementById('submit-btn');
+
+    pLink.addEventListener('click', () => {
+        pBox.disabled = false;
+        pLink.innerHTML = "PAA Document Opened ✓";
+    });
+
+    pBox.addEventListener('change', () => {
+        pBtn.disabled = !pBox.checked;
+        pBtn.style.opacity = pBox.checked ? "1" : "0.4";
+        pBtn.style.cursor = pBox.checked ? "pointer" : "not-allowed";
+    });
+</script> 
+
+        <!-- SECTION: DRIVER FAQ (ACCORDION STYLE) -->
+<section class="founder" id="driver-faq" style="background: #050505;">
+    <div class="founder__inner">
+        <div class="founder__card-wrap">
+            <div class="founder__card">
+                <div class="pill-header">
+                    <div class="dot-small"></div>
+                    <span style="color: var(--color-cyan); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem;">FAQ </span>
+                </div>
+                
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem; text-transform: uppercase; font-weight: 800;">Everything You <span style="color: var(--color-cyan);">Need to Know</span></h2>
+                <p style="color: rgba(255,255,255,0.6); margin-bottom: 3rem;">Clear answers on earnings, taxes, and how we get you paid.</p>
+
+                <div class="accordion">
+
+                   <!-- UPDATED STRIPE & INSTANT PAY FAQ -->
+<div class="accordion__item">
+    <button class="accordion__trigger">
+        <span style="font-weight: 700; font-size: 1.1rem;">How and when do I get paid?</span>
+    </button>
+    <div class="accordion__body" style="padding: 20px 0; color: rgba(255,255,255,0.8); line-height: 1.6;">
+        <p>We use <strong>Stripe Connect</strong> to handle all earnings safely. You have two options:</p>
+        <ul style="margin-top: 10px; padding-left: 20px; list-style-type: disc;">
+            <li><strong>Weekly Payouts:</strong> Your earnings are automatically deposited to your bank account every week for free.</li>
+            <li><strong>Instant Payouts:</strong> Need your money now? Link an eligible debit card to your Stripe Dashboard to cash out your earnings in minutes for a small 1% Stripe processing fee.</li>
+        </ul>
+        <p style="margin-top: 15px; font-size: 0.95rem; color: rgba(255,255,255,0.6);">
+            <em>Note on Transparency:</em> To keep our platform fee at a low 30%, we split the cost of credit card processing. Totali pays 30% of the processing fees, and the driver pays 70% (their proportional share of the 2.9% transaction cost). This ensures we can provide a high-tech platform while maintaining your 70% take.
+        </p>
+    </div>
+</div>
+
+                    <!-- HST BREAKDOWN -->
+                    <div class="accordion__item">
+                        <button class="accordion__trigger" style="background: none; border: none; color: white; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 0; cursor: pointer; border-bottom: 1px solid #222;">
+                            <span style="font-weight: 700; font-size: 1.1rem;">How is the 70% take calculated with HST?</span>
+                        </button>
+                        <div class="accordion__body" style="padding: 20px 0; color: rgba(255,255,255,0.8); line-height: 1.6;">
+                            <p>As an Independent Contractor in Ontario, the CRA requires you to collect HST on all fares. Your 70% "Gross Take" includes this tax. For example, on a $100 fare, you receive $70.00 ($61.94 for your services + $8.06 HST). Totali automatically generates tax-compliant invoices for every ride to keep your records perfect.</p>
+                        </div>
+                    </div>
+
+                    <!-- INSURANCE -->
+                    <div class="accordion__item">
+                        <button class="accordion__trigger" style="background: none; border: none; color: white; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 0; cursor: pointer; border-bottom: 1px solid #222;">
+                            <span style="font-weight: 700; font-size: 1.1rem;">What insurance do I need?</span>
+                        </button>
+                        <div class="accordion__body" style="padding: 20px 0; color: rgba(255,255,255,0.8); line-height: 1.6;">
+                            <p>You maintain your standard personal auto insurance. Totali provides the primary Commercial Fleet Insurance that covers you and your passengers while you are on a "Totali Trip," ensuring you are fully compliant with Ontario transportation regulations.</p>
+                        </div>
+                    </div>
+
+                    <!-- BACKGROUND CHECK -->
+                    <div class="accordion__item">
+                        <button class="accordion__trigger" style="background: none; border: none; color: white; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 0; cursor: pointer; border-bottom: 1px solid #222;">
+                            <span style="font-weight: 700; font-size: 1.1rem;">How do I start the background check?</span>
+                        </button>
+                        <div class="accordion__body" style="padding: 20px 0; color: rgba(255,255,255,0.8); line-height: 1.6;">
+                            <p>Simply upload your Vulnerable Sector Screening (VSS) and a recent Driving Abstract through the app. Because we are local to London, our verification team typically approves qualified drivers within 3 to 5 business days.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+  
+    
+    <!-- SECTION 2: TEMPLATE FOR OTHER POLICIES (Copy this for Ratings, Safety, etc.) -->
+    <section class="founder" id="bill-of-rights">
+        <div class="founder__inner">
+            <div class="founder__card-wrap">
+                <div class="founder__card">
+                    <div class="pill-header">
+                        <div class="dot-small"></div>
+                        <span style="color: var(--color-cyan); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem;">Program Details</span>
+                    </div>
+                    <h1>Our <span style="color: var(--color-cyan);">Commitment</span> To You</h1>
+                    <div class="content-body">
+                        <p>This is your template. Replace this text with your specific policy draft.</p>
+                        <ul class="policy-list">
+                            <li><strong>Transparency:</strong> You deserve to see exactly how your fare is calculated.</li>
+                            <li><strong>Independence:</strong> You choose when and where you drive.</li>
+                            <li><strong>Fairness:</strong> No hidden fees, just the 70/30 split.</li>
+                        </ul>
+                    </div>
+                    <div class="sig-block">
+                        <div class="dot-large"></div>
+                        <div>
+                            <div class="sig-name">Totali Operations</div>
+                            <div class="sig-role">Driver Relations Department</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center;"><a href="#" class="btn-download">Download Driver App</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const accordionTriggers = document.querySelectorAll('.accordion__trigger');
+
+    accordionTriggers.forEach(trigger => {
+        trigger.addEventListener('click', function() {
+            const parent = this.parentElement;
+            const body = parent.querySelector('.accordion__body');
+            const isOpen = body.classList.contains('open');
+
+            // Close all other open accordion items
+            document.querySelectorAll('.accordion__body').forEach(item => {
+                item.classList.remove('open');
+                item.style.display = 'none';
+            });
+            document.querySelectorAll('.accordion__trigger').forEach(btn => {
+                btn.setAttribute('aria-expanded', 'false');
+            });
+
+            // If it wasn't open, open it now
+            if (!isOpen) {
+                body.classList.add('open');
+                body.style.display = 'block';
+                this.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>
+
